@@ -1,5 +1,5 @@
-import { MongoClient } from "mongodb";
 import { env } from "@/config/environtment";
+import { MongoClient } from "mongodb";
 
 let dbInstance = null;
 

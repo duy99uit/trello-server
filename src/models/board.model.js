@@ -22,7 +22,7 @@ const createNew = async (data) => {
       .insertOne(value);
     return result.ops[0];
   } catch (err) {
-    console.log("err", err);
+    throw new Error(err);
   }
 };
 
