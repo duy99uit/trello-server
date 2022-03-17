@@ -3,7 +3,6 @@ import { HttpStatusCode } from "@/utilities/constants.js";
 const createNew = async (req, res) => {
   try {
     const result = await BoardService.createNew(req.body);
-    console.log("result", result);
     res.status(HttpStatusCode.OK).json(result);
   } catch (err) {
     console.log(err);
