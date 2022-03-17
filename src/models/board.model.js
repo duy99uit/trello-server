@@ -38,11 +38,16 @@ const getFullBoard = async (boardId) => {
           },
         },
         {
+          $addFields: {
+            _id: { $toString: "$_id" },
+          },
+        },
+        {
           $lookup: {
             from: "columns",
             localField: "_id",
             foreignField: "boardId",
-            as: "columns",
+            as: "columns", // fieldname
           },
         },
       ])
