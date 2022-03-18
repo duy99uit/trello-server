@@ -11,8 +11,18 @@ const createNew = async (data) => {
 
 const getFullBoard = async (id) => {
   try {
-    const result = await BoardModel.getFullBoard(id);
-    return result;
+    const board = await BoardModel.getFullBoard(id);
+    // add card to each column
+    board.columns.forEach((column) => {
+      column.cards = board.cards.filter(
+        (card) => card.columnId.toString() === column._id.toString()
+      );
+    });
+    // sort column by columnOrder
+    // remove card from card
+    delete board.cards;
+    // console.log("board", board);
+    return board;
   } catch (err) {
     throw new Error(err);
   }

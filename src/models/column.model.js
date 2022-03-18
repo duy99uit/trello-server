@@ -20,11 +20,30 @@ const validateSchema = async (data) => {
 
 const createNew = async (data) => {
   try {
-    const value = await validateSchema(data);
+    const validatedValue = await validateSchema(data);
+    const insertValue = {
+      ...validatedValue,
+      boardId: ObjectID(validatedValue.boardId),
+    };
     const result = await getDB()
       .collection(columnCollectionName)
-      .insertOne(value);
+      .insertOne(insertValue);
     return result.ops[0];
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const pushCardOrder = async (columnId, cardId) => {
+  try {
+    const result = await getDB()
+      .collection(columnCollectionName)
+      .findOneAndUpdate(
+        { _id: ObjectID(columnId) },
+        { $push: { cardOrder: cardId } },
+        { returnOriginal: false }
+      );
+    return result.value;
   } catch (err) {
     throw new Error(err);
   }
@@ -39,11 +58,16 @@ const update = async (id, data) => {
         { $set: data },
         { returnOriginal: false }
       );
-    console.log("result", result);
+    // console.log("result", result);
     return result.value;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export const ColumnModel = { createNew, update };
+export const ColumnModel = {
+  createNew,
+  update,
+  pushCardOrder,
+  columnCollectionName,
+};
