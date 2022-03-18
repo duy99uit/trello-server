@@ -1,7 +1,9 @@
 import { env } from "@/config/environtment";
 import { connnectDatabase } from "@/config/mongodb";
 import express from "express";
+import cors from "cors";
 import { apiV1 } from "@/routes/v1";
+import { corsOptions } from "@/config/cors";
 
 connnectDatabase()
   .then(() => console.log("...Connected to MongoDB Cluster"))
@@ -13,6 +15,9 @@ connnectDatabase()
 
 const bootServer = () => {
   const app = express();
+
+  app.use(cors(corsOptions));
+
   app.use(express.json());
 
   app.use("/v1", apiV1);
