@@ -3,6 +3,7 @@ import { getDB } from "../config/mongodb";
 import { ObjectID } from "mongodb";
 import { ColumnModel } from "@/models/column.model";
 import { CardModel } from "@/models/card.model";
+import { cloneDeep } from "lodash";
 
 const boardCollectionName = "boards";
 const boardCollectionSchema = Joi.object({
@@ -52,6 +53,7 @@ const getFullBoard = async (boardId) => {
         {
           $match: {
             _id: ObjectID(boardId),
+            _destroy: false,
           },
         },
         // {
