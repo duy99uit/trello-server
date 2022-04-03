@@ -21,9 +21,15 @@ const bootServer = () => {
   app.use(express.json());
 
   app.use("/v1", apiV1);
-  app.listen(env.APP_PORT, env.APP_HOSTNAME, () => {
+  // app.listen(env.APP_PORT, env.APP_HOSTNAME, () => {
+  //   console.log(
+  //     `Server is running at hostname ${env.APP_HOSTNAME}:${env.APP_PORT}/`
+  //   );
+  // });
+
+  app.listen(env.APP_PORT || process.env.PORT, () => {
     console.log(
-      `Server is running at hostname ${env.APP_HOSTNAME}:${env.APP_PORT}/`
+      `Server is running at port $${process.env.PORT}/`
     );
   });
 };
