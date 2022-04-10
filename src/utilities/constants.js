@@ -10,4 +10,5 @@ export const WHITELIST_DOMAIN = [
   "http://localhost:3000",
   "http://localhost:3001",
   "https://trello-99a18.web.app",
+  "https://trello-99a18.firebaseapp.com",
 ];
